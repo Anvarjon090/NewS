@@ -222,4 +222,4 @@ media/
 .idea/
 .vscode/
 db.sqlite3
-.env.*
+.env.*.DS_Store

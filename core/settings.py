@@ -41,17 +41,18 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APPS = [
-    "common",
     "accounts",
     "tags",
     "categories",
+    'news',
+    'common',
 ]
 
 EXTERNAL_APPS = [
+    "jazzmin",
     "rest_framework",
     "rest_framework_simplejwt",
     "drf_yasg",
-    "jazzmin",
     "crispy_forms",
     "crispy_bootstrap4",
     "rosetta",
@@ -217,3 +218,7 @@ JAZZMIN_SETTINGS = {
     },
     "language_chooser": True,
 }
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@kunuz.uz'

@@ -17,10 +17,34 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from django.urls import path, include
+
+from accounts.views import ConfirmEmailAPIView
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Kun.uz Clone API",
+        default_version='v1',
+        description="Rasmiy API hujjatlari",
+        contact=openapi.Contact(email="anvarjon@example.com"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 
 urlpatterns = [
+     path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
     path('news/', include('news.urls')),
+    path('api/accounts/', include('accounts.urls')),
+    path('verify-email/', ConfirmEmailAPIView.as_view(), name='verify-email'),
+
+    # Swagger
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
